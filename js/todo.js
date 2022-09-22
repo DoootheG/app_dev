@@ -4,9 +4,8 @@ const toDoList = document.querySelector("#todo_list");
 
 const toDos = [];
 
-function saveToDo(newToDo) {
-  console.log(newToDo);
-  localStorage.setItem(toDos, newToDo);
+function saveToDo() {
+  localStorage.setItem("list", JSON.stringify(toDos));
 }
 
 function delList(event) {
@@ -31,7 +30,8 @@ function getToDoList(event) {
   const newToDo = toDoInput.value;
   toDoInput.value = "";
   creatList(newToDo);
-  saveToDo(newToDo);
+  toDos.push(newToDo);
+  saveToDo();
 }
 
 toDoForm.addEventListener("submit", getToDoList);

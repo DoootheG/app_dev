@@ -1,20 +1,19 @@
 <!DOCTYPE html>
-<html>
+<html lang="kor">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>연습</title>
+    <title>오늘의 할일</title>
+    <link rel="stylesheet" href="/css/style.css" />
   </head>
   <body>
-    <form id="todo_form">
-      <div>
-        <label for="todo">오늘 할 일: </label>
-        <input type="text" placeholder="할 일을 입력하세요" id="" required />
-        <button>저장</button>
-      </div>
+    <form id="todoForm">
+      <label for="name">오늘의 할 일 : </label>
+      <input type="text" name="todo" id="todo" required />
+      <button>기록</button>
     </form>
-    <ul id="todo_list"></ul>
-    <script src="js/todo.js"></script>
+    <ul id="toDoList"></ul>
+    <script src="/js/todo.js"></script>
   </body>
 </html>

@@ -1,37 +1,40 @@
-const toDoForm = document.querySelector("#todo_form");
-const toDoInput = toDoForm.querySelector("input");
-const toDoList = document.querySelector("#todo_list");
+const toDoForm = document.getElementById("todoForm");
+const toDoInPut = document.getElementById("todo");
+const toDoList = document.getElementById("toDoList");
 
 const toDos = [];
 
-function saveToDo() {
+function saveList() {
   localStorage.setItem("list", JSON.stringify(toDos));
 }
-
-function delList(event) {
-  const li = event.target.parentElement;
-  li.remove();
-}
-
 function creatList(newToDo) {
   const li = document.createElement("li");
   const span = document.createElement("span");
-  span.innerText = newToDo;
-  const btn = document.createElement("button");
-  btn.innerText = "❌";
+  span.innerText = newToDo.text;
+  const button = document.createElement("button");
+  button.innerText = "❌";
   li.appendChild(span);
-  li.appendChild(btn);
-  btn.addEventListener("click", delList);
+  li.appendChild(button);
   toDoList.appendChild(li);
 }
 
-function getToDoList(event) {
+function handleSubmit(event) {
   event.preventDefault();
-  const newToDo = toDoInput.value;
-  toDoInput.value = "";
-  creatList(newToDo);
+  const newToDo = {
+    text: toDoInPut.value,
+    id: Date.now(),
+  };
+  toDoInPut.value = "";
   toDos.push(newToDo);
-  saveToDo();
+  creatList(newToDo);
+  saveList(newToDo);
 }
 
-toDoForm.addEventListener("submit", getToDoList);
+toDoForm.addEventListener("submit", handleSubmit);
+
+const listObj = JSON.parse(localStorage.getItem("list"));
+console.log(listObj);
+
+if (listObj !== null) {
+  listObj.forEach(creatList);
+}

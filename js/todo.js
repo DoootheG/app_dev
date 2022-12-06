@@ -2,13 +2,22 @@ const toDoForm = document.getElementById("todoForm");
 const toDoInPut = document.getElementById("todo");
 const toDoList = document.getElementById("toDoList");
 
-const toDos = [];
+let toDos = [];
 
 function saveList() {
   localStorage.setItem("list", JSON.stringify(toDos));
 }
+
+function delList(event) {
+  const li = event.target.parentElement;
+  li.remove();
+  toDos = toDos.filter((element) => element.id !== parseInt(li.id));
+  saveList();
+}
+
 function creatList(newToDo) {
   const li = document.createElement("li");
+  li.id = newToDo.id;
   const span = document.createElement("span");
   span.innerText = newToDo.text;
   const button = document.createElement("button");
@@ -16,6 +25,7 @@ function creatList(newToDo) {
   li.appendChild(span);
   li.appendChild(button);
   toDoList.appendChild(li);
+  button.addEventListener("click", delList);
 }
 
 function handleSubmit(event) {
@@ -33,8 +43,8 @@ function handleSubmit(event) {
 toDoForm.addEventListener("submit", handleSubmit);
 
 const listObj = JSON.parse(localStorage.getItem("list"));
-console.log(listObj);
 
 if (listObj !== null) {
   listObj.forEach(creatList);
+  toDos = listObj;
 }
